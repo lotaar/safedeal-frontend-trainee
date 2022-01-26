@@ -1,0 +1,34 @@
+.modalActive {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+ 
+  background: #FFFFFF;
+  display: flex;
+}
+
+.modal {
+  display: none;
+}
+
+.imageWithForm img {
+  width: 100px;
+  height: 100px;
+}
+
+.closeButton {
+  position: relative;
+  top: 5px;
+  right: 10px;
+  width: 15px;
+  height: 15px;
+}
