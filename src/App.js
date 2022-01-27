@@ -6,12 +6,13 @@ import Modal from './Components/Modal/Modal';
 
 function App() {
   const [modalActive,setModalActive] = useState(false)
-  const [imgId, setImageId] =useState([])
+  const [imgId, setImageId] =useState(237)
   return (
     <div className="App">
       <h1>Test APP</h1>
       <Gallery setActive={setModalActive} setId={setImageId}/>
-      <Modal active={modalActive} setActive={setModalActive} id={imgId}/>
+       {modalActive? <Modal active={modalActive} setActive={setModalActive} id={imgId}/> : null}
+      {/* <Modal active={modalActive} setActive={setModalActive} id={imgId}/> */}
     </div>
   );
 }
