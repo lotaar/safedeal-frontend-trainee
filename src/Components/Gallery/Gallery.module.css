@@ -19,6 +19,7 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
     margin: 0 auto;
+    min-width: 331px;
     
 }
 .image {
@@ -49,5 +50,9 @@ h1 {
 @media (max-width: 498px) {
     .separator {
         margin-top: 150px;
+    }
+    .image {
+        width: 280px;
+        height: 171px;
     }
 }
