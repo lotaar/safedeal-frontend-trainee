@@ -9,6 +9,12 @@ const initialForm = {
 };
 
 let Modal = ({ active, setActive, id }) => {
+  let dateFormatter =(timestamp) => {
+  
+    let formatedData =new Date(timestamp).toLocaleDateString("en-US")
+    return formatedData
+  }
+
   const [modalContentData, setModalContentData] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -16,18 +22,18 @@ let Modal = ({ active, setActive, id }) => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    const apiFormData = new FormData()
+    /* const apiFormData = new FormData()
     apiFormData.append('name', formData.name)
-    apiFormData.append('comment', formData.comment)
+    apiFormData.append('comment', formData.comment) */
 
     fetch(
       `https://boiling-refuge-66454.herokuapp.com/images/${id}/comments`,
       {
         method: "POST",
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/JSON'
         },
-        body: apiFormData,
+        body: JSON.stringify(formData),
       }
     ).then((res) => res.json()).then((data) => console.log(data))
   }
@@ -60,7 +66,7 @@ let Modal = ({ active, setActive, id }) => {
               onChange={handleChangeField}
             />
             <input
-              placeholder="Ваше комментарий"
+              placeholder="Ваш комментарий"
               name="comment"
               value={formData.comment}
               onChange={handleChangeField}
@@ -69,18 +75,21 @@ let Modal = ({ active, setActive, id }) => {
             <button onClick={handleSubmit}>Оценить сиськи</button>
           </form>
         </div>
+        <div className={style.comments}>
         {isLoading
           ? "Loading"
           : modalContentData.comments.map((comment) => {
+            
               return (
-                <div>
-                  <p>{comment.date}</p>
-                  <p>{comment.text}</p>
+                <div className={style.commentBody}>
+                  <p className={style.commentData}>{dateFormatter(comment.date)}</p>
+                  <p className={style.commentText}>{comment.text}</p>
                 </div>
               );
             })}
+            </div>
         <button className={style.closeButton} onClick={() => setActive(false)}>
-          ×
+          
         </button>
       </div>
     </div>
@@ -88,6 +97,17 @@ let Modal = ({ active, setActive, id }) => {
 };
 
 export default Modal;
+
+
+
+
+
+ 
+
+
+
+
+
 
 {
   /* <div className={style.comments}>

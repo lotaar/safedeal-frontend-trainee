@@ -18,7 +18,7 @@ let Gallery = (props) => {
  
 
   return (
-    <div>
+    <div className="galleryWrapper">
       <div className={styles.photoWrapper}>
         {data.map((p) => {
           return <img src={p.url} alt="" className={styles.image} onClick={ () =>onClickSetData(p.id)} />;

@@ -1,9 +1,24 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+h1 {
+    font-size: 36px;
+    font-family: Roboto;
+}
 .photoWrapper {
+ /*    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; */
+    margin: 0 auto; 
+    max-width: 800px;
+    
+}
+
+.galleryWrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin: 0 auto;
-    max-width: 800px;
     
 }
 .image {
@@ -14,7 +29,7 @@
 }
 
 .separator {
-    width: 728px;
+    max-width: 728px;
     border: 1px solid #CCCCCC;
     margin-top: 362px;
     margin-left: auto;
@@ -26,4 +41,13 @@
 .footerText {
    text-align: center;
    margin: 12px 0;
+   font-family: Roboto;
+   font-size: 14px;
+    color: #CCCCCC;;
+}
+
+@media (max-width: 498px) {
+    .separator {
+        margin-top: 150px;
+    }
 }

@@ -6,7 +6,7 @@ import Modal from './Components/Modal/Modal';
 
 function App() {
   const [modalActive,setModalActive] = useState(false)
-  const [imgId, setImageId] =useState(237)
+  const [imgId, setImageId] =useState('')
   return (
     <div className="App">
       <h1>Test APP</h1>
