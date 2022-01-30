@@ -20,7 +20,9 @@ let Modal = ({ active, setActive, id }) => {
   const [formData, setFormData] = useState(initialForm);
 
   function handleSubmit(event) {
+    let date = new Date()
     event.preventDefault();
+    setModalContentData({...modalContentData, comments:[...modalContentData.comments, {id:null, text:formData.comment, date: date}] })
     /* const apiFormData = new FormData()
     apiFormData.append('name', formData.name)
     apiFormData.append('comment', formData.comment) */
