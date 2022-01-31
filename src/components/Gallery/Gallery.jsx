@@ -20,8 +20,8 @@ let Gallery = (props) => {
   return (
     <div className="galleryWrapper">
       <div className={styles.photoWrapper}>
-        {data.map((p) => {
-          return <img src={p.url} alt="" className={styles.image} onClick={ () =>onClickSetData(p.id)} />;
+        {data.map((p, index) => {
+          return <img key={index} src={p.url} alt="" className={styles.image} onClick={ () =>onClickSetData(p.id)} />;
         })}
       </div>
       <div className={styles.separator}></div>

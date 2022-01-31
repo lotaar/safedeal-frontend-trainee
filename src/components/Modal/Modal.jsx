@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
-import { useState } from "react/cjs/react.development";
+import React, { useEffect, useState } from "react";
 import style from "../Modal/Modal.module.css";
-import Preloader from "../Preloader/Preloader";
+
 
 const initialForm = {
   name: "",
@@ -23,9 +22,7 @@ let Modal = ({ active, setActive, id }) => {
     let date = new Date()
     event.preventDefault();
     setModalContentData({...modalContentData, comments:[...modalContentData.comments, {id:null, text:formData.comment, date: date}] })
-    /* const apiFormData = new FormData()
-    apiFormData.append('name', formData.name)
-    apiFormData.append('comment', formData.comment) */
+
 
     fetch(`https://boiling-refuge-66454.herokuapp.com/images/${id}/comments`, {
       method: "POST",
@@ -51,7 +48,7 @@ let Modal = ({ active, setActive, id }) => {
       .then((data) => setModalContentData(data))
       .then(() => setIsLoading(false));
   }, [id]);
-  console.log(modalContentData);
+  
 
   const handleChangeField = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -61,17 +58,16 @@ let Modal = ({ active, setActive, id }) => {
     <div onClick={e => (e.currentTarget === e.target) && setActive(false)} className={active ? style.modalActive : style.modal}>
       <div className={style.modalContent}>
         <div className={style.modalContentImage}>
-          <img
-            src={isLoading ? "Loading" : modalContentData.url}
-            alt="Сиськи"
-          />
+        {isLoading ?  "Loading" : <img src={ modalContentData.url}
+          alt='Gallery item'
+        />}
         </div>
         <div className={style.comments}>
           {isLoading
             ? "Loading"
-            : modalContentData.comments.map((comment) => {
+            : modalContentData.comments.map((comment, index) => {
                 return (
-                  <div className={style.commentBody}>
+                  <div key={index} className={style.commentBody}>
                     <p className={style.commentData}>
                       {dateFormatter(comment.date)}
                     </p>
@@ -95,7 +91,7 @@ let Modal = ({ active, setActive, id }) => {
               onChange={handleChangeField}
             />
 
-            <button onClick={handleSubmit}>Оценить сиськи</button>
+            <button onClick={handleSubmit}>Оставить комментарий</button>
           </form>
         </div>
         <button
@@ -109,35 +105,6 @@ let Modal = ({ active, setActive, id }) => {
 
 export default Modal;
 
-{
-  /* <div className={style.comments}>
 
 
-<p className={style.commentData}>02.02.03</p>
-<p className={style.commentText}>Сиськи хорошие</p> 
-                   
-               </div> */
-}
 
-{
-  /* <p className={style.commentData}>02.02.03</p>
-<p className={style.commentText}>Сиськи хорошие</p> */
-}
-
-{
-  /* <div className={active? style.modalActive : style.modal}>
-<div className={style.modalContent}>
-    <div className={style.modalImage}>
-
-    </div>
-    <form className={style.modalForm}>
-        <input></input>
-        <br/>
-        <input></input>
-        <br />
-        <button>Оставить комментарий</button>
-    </form>
-    <button onClick={()=> setActive(false)}>×</button>
-</div>
-</div> */
-}

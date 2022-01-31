@@ -6,9 +6,6 @@ h1 {
     font-family: Roboto;
 }
 .photoWrapper {
- /*    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; */
     margin: 0 auto; 
     max-width: 800px;
     
