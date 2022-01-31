@@ -13,7 +13,6 @@ function App() {
       <h1>Test APP</h1>
       <Gallery setActive={setModalActive} setId={setImageId}/>
        {modalActive? <Modal active={modalActive} setActive={setModalActive} id={imgId}/> : null}
-      {/* <Modal active={modalActive} setActive={setModalActive} id={imgId}/> */}
     </div>
   );
 }
