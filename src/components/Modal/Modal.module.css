@@ -127,17 +127,4 @@
   }
 }
 
-/* @media (max-width: 581px) {
-  .modalContent {
-    width: 100vh;
-    height: 100vh;
-    flex-direction: column;
-    margin: 0 auto;
-    align-items: center;
-  }
-  .closeButton {
-    top: 40px;
-    right: 40px;
-    background-color: white;
-  }
-} */
+

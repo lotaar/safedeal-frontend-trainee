@@ -55,7 +55,8 @@ let Modal = ({ active, setActive, id }) => {
   };
 
   return (
-    <div onClick={e => (e.currentTarget === e.target) && setActive(false)} className={active ? style.modalActive : style.modal}>
+    <div onClick={e => (e.currentTarget === e.target) 
+    && setActive(false)} className={active ? style.modalActive : style.modal}>
       <div className={style.modalContent}>
         <div className={style.modalContentImage}>
         {isLoading ?  "Loading" : <img src={ modalContentData.url}
