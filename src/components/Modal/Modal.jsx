@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from "react";
+import { API_URL, INITIAL_FORM } from "../../utils/constants";
+import { dateFormatter } from "../../utils/helpers";
+
 import style from "../Modal/Modal.module.css";
 
 
-const initialForm = {
-  name: "",
-  comment: "",
-};
+
 
 let Modal = ({ active, setActive, id }) => {
-  let dateFormatter = (timestamp) => {
-    let formatedData = new Date(timestamp).toLocaleDateString("en-US");
-    return formatedData;
-  };
 
-  const [modalContentData, setModalContentData] = useState("");
+  const [modalContentData, setModalContentData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-  const [formData, setFormData] = useState(initialForm);
+  const [formData, setFormData] = useState(INITIAL_FORM);
+
+  const closeModal = (e) => {
+    (e.currentTarget === e.target) 
+    && setActive(false)
+  }
 
   function handleSubmit(event) {
     let date = new Date()
     event.preventDefault();
-    setModalContentData({...modalContentData, comments:[...modalContentData.comments, {id:null, text:formData.comment, date: date}] })
+    
 
 
-    fetch(`https://boiling-refuge-66454.herokuapp.com/images/${id}/comments`, {
+    fetch(`${API_URL}/${id}/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/JSON",
@@ -32,7 +33,9 @@ let Modal = ({ active, setActive, id }) => {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => console.log(data))
+      .then(setModalContentData({...modalContentData, comments:
+        [...modalContentData.comments, {id:null, text:formData.comment, date: date}] }));
   }
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -43,7 +46,7 @@ let Modal = ({ active, setActive, id }) => {
   }, []);
 
   useEffect(() => {
-    fetch(`https://boiling-refuge-66454.herokuapp.com/images/${id}`)
+    fetch(`${API_URL}/${id}`)
       .then((response) => response.json())
       .then((data) => setModalContentData(data))
       .then(() => setIsLoading(false));
@@ -55,8 +58,7 @@ let Modal = ({ active, setActive, id }) => {
   };
 
   return (
-    <div onClick={e => (e.currentTarget === e.target) 
-    && setActive(false)} className={active ? style.modalActive : style.modal}>
+    <div onClick={ e => closeModal(e)} className={active ? style.modalActive : style.modal}>
       <div className={style.modalContent}>
         <div className={style.modalContentImage}>
         {isLoading ?  "Loading" : <img src={ modalContentData.url}
@@ -66,9 +68,9 @@ let Modal = ({ active, setActive, id }) => {
         <div className={style.comments}>
           {isLoading
             ? "Loading"
-            : modalContentData.comments.map((comment, index) => {
+            : modalContentData.comments.map((comment) => {
                 return (
-                  <div key={index} className={style.commentBody}>
+                  <div key={comment.id} className={style.commentBody}>
                     <p className={style.commentData}>
                       {dateFormatter(comment.date)}
                     </p>
@@ -98,14 +100,10 @@ let Modal = ({ active, setActive, id }) => {
         <button
           className={style.closeButton}
           onClick={() => setActive(false)}
-        ></button>
+        />
       </div>
     </div>
   );
 };
 
 export default Modal;
-
-
-
-

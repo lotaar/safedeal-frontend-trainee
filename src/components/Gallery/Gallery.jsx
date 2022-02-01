@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from "react";
+import { API_URL } from "../../utils/constants";
 import styles from '../Gallery/Gallery.module.css'
 
-let Gallery = (props) => {
-  const [data, setData] = useState([]);
- let url= `https://boiling-refuge-66454.herokuapp.com/images`
+const Gallery = (props) => {
+  const [imageList, setImageList] = useState([]);
+  
 
-  let onClickSetData = (id)=> {
+  const onClickSetImageList = (id)=> {
     props.setActive(true)
     props.setId(id)
   }
   useEffect(() => {
-    fetch(url)
+    fetch(`${API_URL}`)
       .then((response) => response.json())
       .then((data) => data)
-      .then((data) => setData(data));
-  }, [url]);
+      .then((data) => setImageList(data));
+  }, []);
  
+if(!imageList.length) {
+  return <h1>Loading data, please wait</h1>
+}
 
   return (
-    <div className="galleryWrapper">
+    <div>
       <div className={styles.photoWrapper}>
-        {data.map((p, index) => {
-          return <img key={index} src={p.url} alt="" 
-          className={styles.image} onClick={ () =>onClickSetData(p.id)} />;
+        {imageList.map((photo) => {
+          return <img key={photo.id} src={photo.url} alt="" 
+          className={styles.image} onClick={ () =>onClickSetImageList(photo.id)} />;
         })}
       </div>
       <div className={styles.separator}></div>
